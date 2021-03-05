@@ -644,7 +644,7 @@ function mark(editor: DeserializingEditor, el: Element, at: Path): void {
 
     children(editor, el, at, INLINE)
 
-    if (props != null) {
+    if (props != null && el.childNodes.length > 0) {
         Transforms.setNodes(editor, props, {
             at: Editor.range(editor, at, Path.previous(end.current!)),
             match: Text.isText,
