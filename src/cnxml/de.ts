@@ -228,6 +228,9 @@ export function children(
     for (const child of el.childNodes) {
         switch (child.nodeType) {
         case Node.ELEMENT_NODE:
+            if (child.nodeType === Node.ELEMENT_NODE && child.childNodes.length === 0) {
+                (child as Element).append('')
+            }
             editor.deserializeElement(child as Element, path.current!, context)
             break
 
@@ -381,8 +384,8 @@ export function normalizeVoid(editor: DeserializingEditor, at: Path): void {
         normalizeWhiteSpace(editor, at)
     }
 
-    if (node.children.length === 1
-    && Text.isText(node.children[0]) && node.children[0].text === '') {
+    if (node.children.length > 0
+    && node.children.every((child: Slate.Node) => Text.isText(child) && child.text === '')) {
         return
     }
 
@@ -644,7 +647,7 @@ function mark(editor: DeserializingEditor, el: Element, at: Path): void {
 
     children(editor, el, at, INLINE)
 
-    if (props != null && el.childNodes.length > 0) {
+    if (props != null) {
         Transforms.setNodes(editor, props, {
             at: Editor.range(editor, at, Path.previous(end.current!)),
             match: Text.isText,

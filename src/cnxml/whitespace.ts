@@ -181,8 +181,6 @@ function findWhitespaceBoundary(
     }
 
     for (const [index, child] of enumerate(node.children, affinity === 'end')) {
-        if (Element.isElement(child) && child.children.length === 0) return
-
         if (!Text.isText(child)) {
             return affinity === 'start'
                 ? Editor.start(editor, [...at, index])

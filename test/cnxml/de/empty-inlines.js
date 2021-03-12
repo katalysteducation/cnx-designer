@@ -20,7 +20,7 @@ export const input = cnxml`
 
 export const output = <document>
     <p>
-        {", , , , , , , , , , ,  "}
+        {", , , , , , , , , , , "}
     </p>
 </document>
 
